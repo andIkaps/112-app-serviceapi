@@ -5,10 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Religion extends Model
+class Menu extends Model
 {
     use HasFactory;
 
-    protected $table = "ms_religions";
+    protected $table = "ms_menus";
     protected $guarded = ['id'];
+
+    public function childrens()
+    {
+        return $this->hasMany(Menu::class, 'parent_id', 'id');
+    }
 }

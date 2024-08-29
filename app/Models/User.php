@@ -10,10 +10,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    protected $table = 'ms_users';
-
     use HasFactory, Notifiable;
 
+    protected $table = 'ms_users';
     /**
      * The attributes that are mass assignable.
      *
@@ -55,5 +54,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
     }
 }

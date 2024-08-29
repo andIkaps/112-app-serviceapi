@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\Models\Status;
+use App\Models\District;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class StatusController extends Controller
+class DistrictController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,11 @@ class StatusController extends Controller
     public function index()
     {
         try {
-            $status = Status::get();
+            $district = District::get();
 
-            return $this->success_json("Successfully get status", $status);
+            return $this->success_json("Successfully get district", $district);
         } catch (\Throwable $th) {
-            return $this->error_json("Failed to get status", $th->getMessage(), 500);
+            return $this->error_json("Failed to get district", $th->getMessage(), 500);
         }
     }
 
@@ -31,30 +31,30 @@ class StatusController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'name' => 'required|min:3|unique:ms_marital_status'
+            'name' => 'required|min:3|unique:ms_districts'
         ]);
 
         if ($validator->fails()) {
-            return $this->error_json("Faield to create status", $validator->errors(), 400);
+            return $this->error_json("Faield to create district", $validator->errors(), 400);
         }
 
         try {
-            $newStatus = Status::create([
+            $newDistrict = District::create([
                 'name' => $request->name
             ]);
 
-            if ($newStatus) {
-                return $this->success_json('Successfully create new status', $newStatus);
+            if ($newDistrict) {
+                return $this->success_json('Successfully create new district', $newDistrict);
             }
         } catch (\Throwable $th) {
-            return $this->error_json("Faield to create status", $th->getMessage(), 422);
+            return $this->error_json("Faield to create district", $th->getMessage(), 422);
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Status $status)
+    public function show(District $district)
     {
         //
     }
@@ -64,10 +64,10 @@ class StatusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $find = Status::where('id', $id)->first();
+        $find = District::where('id', $id)->first();
 
         if (!$find) {
-            return $this->error_json("Status not Found! ", $find, 404);
+            return $this->error_json("District not Found! ", $find, 404);
         }
 
         $data = $request->all();
@@ -77,19 +77,19 @@ class StatusController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return $this->error_json("Faield to update status", $validator->errors(), 400);
+            return $this->error_json("Faield to update district", $validator->errors(), 400);
         }
 
         try {
-            $updatedStatus = $find->update([
+            $updatedDistrict = $find->update([
                 'name' => $request->name
             ]);
 
-            if ($updatedStatus) {
-                return $this->success_json('Successfully update status', $updatedStatus);
+            if ($updatedDistrict) {
+                return $this->success_json('Successfully update district', $updatedDistrict);
             }
         } catch (\Throwable $th) {
-            return $this->error_json("Faield to update status", $th->getMessage(), 422);
+            return $this->error_json("Faield to update district", $th->getMessage(), 422);
         }
     }
 
@@ -98,20 +98,20 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
-        $find = Status::where('id', $id)->first();
+        $find = District::where('id', $id)->first();
 
         if (!$find) {
-            return $this->error_json("Status not Found! ", $find, 404);
+            return $this->error_json("District not Found! ", $find, 404);
         }
 
         try {
             $delete = $find->delete();
 
             if ($delete) {
-                return $this->success_json('Successfully delete status', $delete);
+                return $this->success_json('Successfully delete district', $delete);
             }
         } catch (\Throwable $th) {
-            return $this->error_json("Failed to delete status ", $th->getMessage(), 500);
+            return $this->error_json("Failed to delete district ", $th->getMessage(), 500);
         }
     }
 }

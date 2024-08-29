@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class District extends Model
 {
-    protected $table = "ms_districts";
-
     use HasFactory;
+
+    protected $table = "ms_districts";
+    protected $guarded = ['id'];
 }

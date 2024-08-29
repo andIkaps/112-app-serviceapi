@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
-    protected $table = 'ms_status';
-
     use HasFactory;
 
+    protected $table = 'ms_marital_status';
     protected $guarded = ['id'];
 }

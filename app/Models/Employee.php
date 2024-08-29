@@ -7,9 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    protected $table = "ms_employees";
-
     use HasFactory;
 
+    protected $table = "ms_employees";
     protected $guarded = ['id'];
+
+    public function marital_status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    public function religion()
+    {
+        return $this->belongsTo(Religion::class);
+    }
 }

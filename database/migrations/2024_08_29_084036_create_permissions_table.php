@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ms_marital_status', function (Blueprint $table) {
+        Schema::create('ms_permissions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 100);
+            $table->foreignId('menu_id')->nullable()->constrained('ms_menus');
             $table->foreignId('created_by')->nullable()->constrained('ms_users');
             $table->foreignId('updated_by')->nullable()->constrained('ms_users');
             $table->timestamps();
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ms_marital_status');
+        Schema::dropIfExists('ms_permissions');
     }
 };
