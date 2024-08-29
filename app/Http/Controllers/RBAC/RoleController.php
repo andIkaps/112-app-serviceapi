@@ -4,6 +4,8 @@ namespace App\Http\Controllers\RBAC;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
+use App\Models\RoleMenu;
+use App\Models\RolePermission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +17,7 @@ class RoleController extends Controller
     public function index()
     {
         try {
-            $roles = Role::get();
+            $roles = Role::with(['menus.menu', 'permissions.permission'])->get();
 
             return $this->success_json("Successfully get roles", $roles);
         } catch (\Throwable $th) {
@@ -114,6 +116,81 @@ class RoleController extends Controller
             }
         } catch (\Throwable $th) {
             return $this->error_json("Failed to delete role ", $th->getMessage(), 500);
+        }
+    }
+
+    /**
+     * assign role menus
+     * need role_id and menu_id
+     */
+    public function assign_menus(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'role_id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error_json("Failed to assign menus", $validator->errors(), 400);
+        }
+
+        $collectionMenu = collect([]);
+
+        foreach ($request->menu_ids as $menu_id) {
+            $collectionMenu->push([
+                'role_id' => $request->role_id,
+                'menu_id' => $menu_id,
+            ]);
+        }
+
+        try {
+            RoleMenu::where('role_id', $request->role_id)->delete();
+
+            $create = RoleMenu::insert($collectionMenu->toArray());
+
+            if ($create) {
+                return $this->success_json("Successfully assign menus", $create);
+            }
+        } catch (\Throwable $th) {
+            return $this->error_json("Failed to assign menus", $th->getMessage(), 500);
+        }
+    }
+
+    /**
+     * assign role permission
+     * need role_id and permission_id
+     */
+    public function assign_permissions(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'role_id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error_json("Failed to assign permissions", $validator->errors(), 400);
+        }
+
+        $collectionPermissions = collect([]);
+
+        foreach ($request->permission_ids as $permission_id) {
+            $collectionPermissions->push([
+                'role_id' => $request->role_id,
+                'permission_id' => $permission_id,
+            ]);
+        }
+
+        // return $collectionPermissions;
+        try {
+            RolePermission::where('role_id', $request->role_id)->delete();
+
+            $create = RolePermission::insert($collectionPermissions->toArray());
+
+            if ($create) {
+                return $this->success_json("Successfully assign permissions", $create);
+            }
+        } catch (\Throwable $th) {
+            return $this->error_json("Failed to assign permissions", $th->getMessage(), 500);
         }
     }
 }

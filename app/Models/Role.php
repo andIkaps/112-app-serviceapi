@@ -11,4 +11,14 @@ class Role extends Model
 
     protected $table = "ms_roles";
     protected $guarded = ['id'];
+
+    public function menus()
+    {
+        return $this->hasMany(RoleMenu::class);
+    }
+
+    public function permissions()
+    {
+        return $this->hasMany(RolePermission::class);
+    }
 }

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string("icon", 20);
             $table->integer("ord");
             $table->foreignId('parent_id')->nullable()->constrained('ms_menus');
-            $table->foreignId('created_by')->nullable()->constrained('ms_users');
-            $table->foreignId('updated_by')->nullable()->constrained('ms_users');
+            $table->string('created_by')->nullable()->default('SYSTEM');
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\RBAC;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -56,7 +57,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return $user;
     }
 
     /**
@@ -114,6 +115,58 @@ class UserController extends Controller
             return $this->success_json('Successfully delete user', $deleted);
         } catch (\Throwable $th) {
             return $this->error_json("Failed to delete User", $th->getMessage(), 500);
+        }
+    }
+
+    /**
+     * assign user roles
+     * need role_id and user_id
+     */
+    public function assign_roles(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error_json("Failed to assign user roles", $validator->errors(), 400);
+        }
+
+        $collectionRoles = collect([]);
+
+        foreach ($request->role_ids as $role_id) {
+            $collectionRoles->push([
+                'user_id' => $request->user_id,
+                'role_id' => $role_id,
+            ]);
+        }
+
+        try {
+            UserRole::where('user_id', $request->user_id)->delete();
+
+            $create = UserRole::insert($collectionRoles->toArray());
+
+            if ($create) {
+                return $this->success_json("Successfully assign roles", $create);
+            }
+        } catch (\Throwable $th) {
+            return $this->error_json("Failed to assign roles", $th->getMessage(), 500);
+        }
+    }
+
+    /**
+     * show user login with roles, menus and permissions
+     */
+    public function me(Request $request)
+    {
+        $user_login = $request->user();
+
+        try {
+            $find = User::with(['employee', 'roles.role.menus.menu.permissions'])->where('id', $user_login->id)->first();
+
+            return $this->success_json("Successfully get user login", $find);
+        } catch (\Throwable $th) {
+            $this->error_json("Failed to get user login", $th->getMessage(), 500);
         }
     }
 }

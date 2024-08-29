@@ -37,8 +37,12 @@ Route::prefix('/v1')->group(function () {
         Route::apiResource('/districts', DistrictController::class)->except(['show']);
 
         // RBAC
+        Route::get("/users/me", [UserController::class, 'me']);
         Route::apiResource('/users', UserController::class);
+        Route::post('/users/assign-roles', [UserController::class, 'assign_roles']);
         Route::apiResource('/roles', RoleController::class);
+        Route::post('/roles/assign-menus', [RoleController::class, 'assign_menus'])->name('assign-menus');
+        Route::post('/roles/assign-permissions', [RoleController::class, 'assign_permissions'])->name('assign-permissions');
         Route::apiResource('/menus', MenuController::class);
         Route::apiResource('/permissions', PermissionController::class);
     });

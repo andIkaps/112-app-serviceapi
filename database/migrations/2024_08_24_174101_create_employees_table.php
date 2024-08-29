@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('gender', 10);
             $table->date('dob');
             $table->string('address');
-            $table->string('avatar');
+            $table->string('avatar')->default('default.png');
             $table->foreignId('created_by')->nullable()->constrained('ms_users');
             $table->foreignId('updated_by')->nullable()->constrained('ms_users');
             $table->timestamps();
