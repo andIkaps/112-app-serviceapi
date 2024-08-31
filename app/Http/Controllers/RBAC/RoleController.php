@@ -125,7 +125,6 @@ class RoleController extends Controller
      */
     public function assign_menus(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'role_id' => 'required|numeric'
         ]);

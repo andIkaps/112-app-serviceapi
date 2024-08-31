@@ -47,7 +47,7 @@ class CustomJWTMiddleware
             ], 401);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Token has expired. Please log in again.',
+                'message' => 'Token is invalid. Please log in again.',
                 'success' => false,
                 'data' => null
             ], 401);

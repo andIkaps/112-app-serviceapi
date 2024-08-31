@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Calls\CallController;
 use App\Http\Controllers\Master\DistrictController;
 use App\Http\Controllers\Master\EmployeeController;
 use App\Http\Controllers\Master\ReligionController;
@@ -45,5 +46,8 @@ Route::prefix('/v1')->group(function () {
         Route::post('/roles/assign-permissions', [RoleController::class, 'assign_permissions'])->name('assign-permissions');
         Route::apiResource('/menus', MenuController::class);
         Route::apiResource('/permissions', PermissionController::class);
+
+        // Call Reports
+        Route::apiResource("/call-reports", CallController::class);
     });
 });
