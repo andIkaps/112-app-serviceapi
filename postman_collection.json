@@ -108,6 +108,16 @@
                         {
                             "name": "List",
                             "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{TOKEN}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
                                 "method": "GET",
                                 "header": [],
                                 "url": {
@@ -1064,6 +1074,118 @@
                     }
                 }
             ]
+        },
+        {
+            "name": "Call Reports",
+            "item": [
+                {
+                    "name": "List",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{API_URL}}/api/v1/call-reports",
+                            "host": ["{{API_URL}}"],
+                            "path": ["api", "v1", "call-reports"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"year\": 2024,\n    \"month_period\": \"February\",\n    \"detail\": [\n        {\n            \"day\": \"1\",\n            \"disconnect_call\": 10,\n            \"prank_call\": 5,\n            \"education_call\": 8,\n            \"abandoned\": 0\n        },\n        {\n            \"day\": \"2\",\n            \"disconnect_call\": 10,\n            \"prank_call\": 5,\n            \"education_call\": 8,\n            \"abandoned\": 0\n        }\n    ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{API_URL}}/api/v1/call-reports",
+                            "host": ["{{API_URL}}"],
+                            "path": ["api", "v1", "call-reports"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"year\": 2024,\n    \"month_period\": \"February\",\n    \"detail\": [\n        {\n            \"day\": \"1\",\n            \"disconnect_call\": 10,\n            \"prank_call\": 5,\n            \"education_call\": 8,\n            \"abandoned\": 0\n        },\n        {\n            \"day\": \"2\",\n            \"disconnect_call\": 10,\n            \"prank_call\": 5,\n            \"education_call\": 8,\n            \"abandoned\": 0\n        }\n    ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{API_URL}}/api/v1/call-reports/4",
+                            "host": ["{{API_URL}}"],
+                            "path": ["api", "v1", "call-reports", "4"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"year\": 2024,\n    \"month_period\": \"February\",\n    \"detail\": [\n        {\n            \"day\": \"1\",\n            \"disconnect_call\": 10,\n            \"prank_call\": 5,\n            \"education_call\": 8,\n            \"abandoned\": 0\n        },\n        {\n            \"day\": \"2\",\n            \"disconnect_call\": 10,\n            \"prank_call\": 5,\n            \"education_call\": 8,\n            \"abandoned\": 0\n        }\n    ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{API_URL}}/api/v1/call-reports/5",
+                            "host": ["{{API_URL}}"],
+                            "path": ["api", "v1", "call-reports", "5"]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": [
+                    {
+                        "key": "token",
+                        "value": "{{TOKEN}}",
+                        "type": "string"
+                    }
+                ]
+            },
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "packages": {},
+                        "exec": [""]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "packages": {},
+                        "exec": [""]
+                    }
+                }
+            ]
         }
     ],
     "event": [
@@ -1092,7 +1214,7 @@
         },
         {
             "key": "TOKEN",
-            "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3YxL2F1dGgvbG9naW4iLCJpYXQiOjE3MjQ5NDQ0NDQsImV4cCI6MTcyNDk0ODA0NCwibmJmIjoxNzI0OTQ0NDQ0LCJqdGkiOiJxdWxvZmIyeUVhYU15SDk2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.UrLy2nalNtj2IykLwwgU1OH5mq-q56JWzcTZECHs_YU",
+            "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3YxL2F1dGgvbG9naW4iLCJpYXQiOjE3MjUwMzA5NTgsImV4cCI6MTcyNTAzNDU1OCwibmJmIjoxNzI1MDMwOTU4LCJqdGkiOiJMZE1VWEFaUlhqNXBZcjV2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.8PdLaxzgCYhAUYOd89aXweGMMHF3qpqQX22Wm6gGqMM",
             "type": "string"
         }
     ]
