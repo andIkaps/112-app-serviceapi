@@ -27,6 +27,7 @@ class CallController extends Controller
                     DB::raw('SUM(tr_call_details.disconnect_call) as total_disconnect_call'),
                     DB::raw('SUM(tr_call_details.prank_call) as total_prank_call'),
                     DB::raw('SUM(tr_call_details.education_call) as total_education_call'),
+                    DB::raw('SUM(tr_call_details.emergency_call) as total_emergency_call'),
                     DB::raw('SUM(tr_call_details.abandoned) as total_abandoned'),
                     'ms_calls.created_at',
                     'ms_calls.updated_at'
@@ -86,6 +87,7 @@ class CallController extends Controller
                         'disconnect_call' => $call_detail['disconnect_call'],
                         'prank_call' => $call_detail['prank_call'],
                         'education_call' => $call_detail['education_call'],
+                        'emergency_call' => $call_detail['emergency_call'],
                         'abandoned' => $call_detail['abandoned'],
                     ]);
                 }
@@ -109,9 +111,15 @@ class CallController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Call $call)
+    public function show($id)
     {
-        //
+        $data = Call::with('detail')->where('id', $id)->first();
+
+        if (!$data) {
+            return $this->error_json("Call report not found!", null, 404);
+        }
+
+        return $this->success_json("Successfully get call report", $data);
     }
 
     /**
@@ -153,6 +161,7 @@ class CallController extends Controller
                         'disconnect_call' => $call_detail['disconnect_call'],
                         'prank_call' => $call_detail['prank_call'],
                         'education_call' => $call_detail['education_call'],
+                        'emergency_call' => $call_detail['emergency_call'],
                         'abandoned' => $call_detail['abandoned'],
                     ]);
                 }

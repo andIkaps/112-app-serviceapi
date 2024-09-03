@@ -11,4 +11,9 @@ class Call extends Model
 
     protected $table = "ms_calls";
     protected $guarded = ['id'];
+
+    public function detail()
+    {
+        return $this->hasMany(CallDetail::class);
+    }
 }

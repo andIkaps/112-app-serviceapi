@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Calls\CallController;
+use App\Http\Controllers\Emergency\EmergencyController;
 use App\Http\Controllers\Master\DistrictController;
 use App\Http\Controllers\Master\EmployeeController;
 use App\Http\Controllers\Master\ReligionController;
@@ -49,5 +50,8 @@ Route::prefix('/v1')->group(function () {
 
         // Call Reports
         Route::apiResource("/call-reports", CallController::class);
+
+        // Emergency Reports
+        Route::apiResource("/emergency-reports", EmergencyController::class);
     });
 });

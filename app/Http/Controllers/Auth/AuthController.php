@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -85,7 +86,7 @@ class AuthController extends Controller
         $credentials = $request->only('username', 'password');
 
         if (!$token = auth()->guard('api')->attempt($credentials)) {
-            return $this->error_json("Bad Credentials", false, 401);
+            return $this->error_json("Bad Credentials", false, 400);
         }
 
 

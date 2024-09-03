@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('disconnect_call');
             $table->integer('prank_call');
             $table->integer('education_call');
+            $table->integer('emergency_call');
             $table->integer('abandoned');
         });
     }
