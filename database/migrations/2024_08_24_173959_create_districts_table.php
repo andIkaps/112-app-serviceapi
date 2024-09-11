@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ms_regencies', function (Blueprint $table) {
+        Schema::create('ms_districts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('created_by')->nullable()->constrained('ms_users');
-            $table->foreignId('updated_by')->nullable()->constrained('ms_users');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ms_regencies');
+        Schema::dropIfExists('ms_districts');
     }
 };

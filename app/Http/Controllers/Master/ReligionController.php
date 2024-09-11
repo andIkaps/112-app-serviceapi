@@ -76,7 +76,7 @@ class ReligionController extends Controller
             'name' => 'required|min:3'
         ]);
 
-        if (!$validator->fails()) {
+        if ($validator->fails()) {
             return $this->error_json("Faield to update religion", $validator->errors(), 400);
         }
 

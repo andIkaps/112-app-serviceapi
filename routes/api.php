@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Calls\CallController;
 use App\Http\Controllers\Emergency\EmergencyController;
+use App\Http\Controllers\EmployeeKPIController;
 use App\Http\Controllers\Master\DistrictController;
 use App\Http\Controllers\Master\EmployeeController;
 use App\Http\Controllers\Master\ReligionController;
@@ -34,6 +35,7 @@ Route::prefix('/v1')->group(function () {
         // Master
         Route::post('/employees/{employee}', [EmployeeController::class, 'update']);
         Route::apiResource('/employees', EmployeeController::class)->except('update');
+        Route::apiResource('/employees-kpi', EmployeeKPIController::class);
         Route::apiResource('/marital-status', StatusController::class)->except(['show']);
         Route::apiResource('/religions', ReligionController::class)->except(['show']);
         Route::apiResource('/districts', DistrictController::class)->except(['show']);

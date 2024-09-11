@@ -14,7 +14,7 @@ class DistrictSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('ms_regencies')->insert([
+        DB::table('ms_districts')->insert([
             [
                 'name' => 'Batu Ceper',
                 'created_by' => 1,

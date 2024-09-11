@@ -31,7 +31,7 @@ class DistrictController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'name' => 'required|min:3|unique:ms_regencies'
+            'name' => 'required|min:3|unique:ms_districts'
         ]);
 
         if ($validator->fails()) {

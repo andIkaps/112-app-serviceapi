@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('period', 50);
             $table->year('year');
-            $table->foreignId('district_id')->nullable()->constrained('ms_regencies');
+            $table->foreignId('district_id')->nullable()->constrained('ms_districts');
             $table->integer('kecelakaan');
             $table->integer('kebakaran');
             $table->integer('ambulan_gratis');
+            $table->integer('pln');
             $table->integer('mobil_jenazah');
             $table->integer('penanganan_hewan');
             $table->integer('keamanan');
