@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $users = User::with('employee')->get();
+            $users = User::with(['employee', 'roles'])->get();
             return $this->success_json('Successfully get users', $users);
         } catch (\Throwable $th) {
             //throw $th;

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tr_role_menus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->nullable()->constrained('ms_roles');
-            $table->foreignId('menu_id')->nullable()->constrained('ms_menus');
+            $table->foreignId('role_id')->nullable()->constrained('ms_roles')->cascadeOnDelete();
+            $table->foreignId('menu_id')->nullable()->constrained('ms_menus')->nullOnDelete();
         });
     }
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ms_roles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('ms_users');
             $table->foreignId('updated_by')->nullable()->constrained('ms_users');
             $table->timestamps();
