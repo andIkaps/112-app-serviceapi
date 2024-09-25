@@ -88,9 +88,17 @@ class EmergencyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Emergency $emergency)
+    public function show($id)
     {
-        //
+        try {
+            $data = Emergency::with('district')
+                ->where('id', $id)
+                ->first();
+
+            return $this->success_json("Successfully get Emergency", $data);
+        } catch (\Throwable $th) {
+            return $this->error_json("Failed to get Emergency", $th->getMessage(), 500);
+        }
     }
 
     /**
@@ -111,6 +119,7 @@ class EmergencyController extends Controller
             'kecelakaan'            => 'required|numeric',
             'kebakaran'             => 'required|numeric',
             'ambulan_gratis'        => 'required|numeric',
+            'pln'                   => 'required|numeric',
             'mobil_jenazah'         => 'required|numeric',
             'penanganan_hewan'      => 'required|numeric',
             'keamanan'              => 'required|numeric',
@@ -132,6 +141,7 @@ class EmergencyController extends Controller
                 'kecelakaan'            => $request->kecelakaan,
                 'kebakaran'             => $request->kebakaran,
                 'ambulan_gratis'        => $request->ambulan_gratis,
+                'pln'                   => $request->pln,
                 'mobil_jenazah'         => $request->mobil_jenazah,
                 'penanganan_hewan'      => $request->penanganan_hewan,
                 'keamanan'              => $request->keamanan,

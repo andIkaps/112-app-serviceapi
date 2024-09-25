@@ -109,9 +109,9 @@ class MenuSeeder extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
-                'name'  => 'Regencies',
+                'name'  => 'District',
                 'icon'  => 'Buildings',
-                'url'   => '/master-data/regencies',
+                'url'   => '/master-data/districts',
                 'ord'   => 4,
                 'parent_id'   => 4,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
