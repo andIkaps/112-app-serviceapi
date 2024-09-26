@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Calls\CallController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Emergency\EmergencyController;
 use App\Http\Controllers\EmployeeKPIController;
 use App\Http\Controllers\Master\DistrictController;
@@ -14,11 +15,6 @@ use App\Http\Controllers\RBAC\RoleController;
 use App\Http\Controllers\RBAC\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
-
 
 Route::prefix('/v1')->group(function () {
     Route::get('/login',  function (Request $request) {
@@ -55,5 +51,8 @@ Route::prefix('/v1')->group(function () {
 
         // Emergency Reports
         Route::apiResource("/emergency-reports", EmergencyController::class);
+
+        // Dashboard
+        Route::post('/dashboard/call-reports', [DashboardController::class, 'call_reports'])->name('call-reports');
     });
 });
