@@ -20,7 +20,7 @@ class EmployeeSeeder extends Seeder
             'name'              => 'Tika Soliha',
             'jasnita_number'    => 789111,
             'gender'            => 'female',
-            'dob'               => '2001-04-23',
+            'dob'               => '2001-04-27',
             'address'           => 'Tangerang',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
