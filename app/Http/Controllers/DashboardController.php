@@ -45,9 +45,8 @@ class DashboardController extends Controller
             }
 
             $statByYear = Call::with('detail')
-                ->where([
-                    ['year', '=', $request->year],
-                ])
+                ->where('year', $request->year)
+                ->orderByRaw("FIELD(month_period, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')")
                 ->get();
 
             $totalByYear = [
@@ -70,6 +69,8 @@ class DashboardController extends Controller
 
             $grafik_month = collect([]);
             $bar_grafik_month = collect([]);
+            $grafik_year = collect([]);
+            $bar_grafik_year = collect([]);
 
             foreach ($statByMonth->detail as $detail) {
                 $date = sprintf('2024-%s-%s', '09', str_pad($detail->day, 2, '0', STR_PAD_LEFT));
@@ -91,6 +92,35 @@ class DashboardController extends Controller
                     ]);
                 } else {
                     $bar_grafik_month->push([
+                        'x' => strtoupper($name[0]),
+                        'y' => $value
+                    ]);
+                }
+            }
+
+            // return $statByYear;
+            foreach ($statByYear as $month) {
+                foreach ($month->detail as $detail) {
+                    $date = $month->month_period . " " . $detail->day;
+                    $total = $detail->disconnect_call + $detail->prank_call + $detail->education_call + $detail->emergency_call + $detail->abandoned;
+
+                    $grafik_year->push([
+                        'x' => $date,
+                        'y' => $total
+                    ]);
+                }
+            }
+
+            foreach ($totalByYear as $key => $value) {
+                $name = explode('_', $key);
+
+                if (count($name) > 1) {
+                    $bar_grafik_year->push([
+                        'x' => ucfirst($name[0]) . " " . ucfirst($name[1]),
+                        'y' => $value
+                    ]);
+                } else {
+                    $bar_grafik_year->push([
                         'x' => strtoupper($name[0]),
                         'y' => $value
                     ]);
@@ -131,6 +161,8 @@ class DashboardController extends Controller
                 'by_year' => $totalByYear,
                 'grafik_month' => $grafik_month,
                 'bar_grafik_month' => $bar_grafik_month,
+                'grafik_year' => $grafik_year,
+                'bar_grafik_year' => $bar_grafik_year,
                 'total' => $formattedResult
             ]);
 
