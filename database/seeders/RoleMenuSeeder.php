@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RoleMenuSeeder extends Seeder
 {
@@ -12,6 +13,11 @@ class RoleMenuSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        for ($i = 1; $i <= 16; $i++) {
+            DB::table('tr_role_menus')->insert([
+                'role_id'      => 1,
+                'menu_id'      => $i,
+            ]);
+        }
     }
 }
