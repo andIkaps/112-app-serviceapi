@@ -54,5 +54,6 @@ Route::prefix('/v1')->group(function () {
 
         // Dashboard
         Route::post('/dashboard/call-reports', [DashboardController::class, 'call_reports'])->name('call-reports');
+        Route::post('/dashboard/emergency-reports', [DashboardController::class, 'emergency_reports'])->name('emergency_reports');
     });
 });

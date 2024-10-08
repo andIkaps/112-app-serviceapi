@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('ms_emergency', function (Blueprint $table) {
             $table->id();
             $table->string('period', 50);
+            $table->date('period_date');
             $table->year('year');
             $table->foreignId('district_id')->nullable()->constrained('ms_districts');
             $table->integer('kecelakaan');

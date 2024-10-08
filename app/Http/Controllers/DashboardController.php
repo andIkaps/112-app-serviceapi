@@ -171,4 +171,106 @@ class DashboardController extends Controller
             return $this->error_json("Report not Found!", $th->getMessage(), 400);
         }
     }
+
+    public function emergency_reports(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'month_period' => 'required',
+                'year' => 'required',
+                'district_id' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->error_json("Failed to create Emergency data", $validator->errors(), 400);
+            }
+
+            $statByMonth = Emergency::select(
+                'kecelakaan',
+                'kebakaran',
+                'ambulan_gratis',
+                'pln',
+                'mobil_jenazah',
+                'penanganan_hewan',
+                'keamanan',
+                'kriminal',
+                'bencana_alam',
+                'kdrt',
+                'gawat_darurat_lain'
+            )
+                ->whereMonth('period_date', '>=', $request->from)
+                ->whereMonth('period_date', '<=', $request->to)
+                ->where([
+                    ['year', '=', $request->year],
+                    ['district_id', '=', $request->district_id],
+                ])->get();
+
+            $total_by_month = [
+                'kecelakaan' => 0,
+                'kebakaran' => 0,
+                'ambulan_gratis' => 0,
+                'pln' => 0,
+                'mobil_jenazah' => 0,
+                'penanganan_hewan' => 0,
+                'keamanan' => 0,
+                'kriminal' => 0,
+                'bencana_alam' => 0,
+                'kdrt' => 0,
+                'gawat_darurat_lain' => 0,
+            ];
+
+            foreach ($statByMonth as $item) {
+                foreach ($total_by_month as $key => $value) {
+                    $total_by_month[$key] += $item[$key];
+                }
+            }
+
+            $statByYear = Emergency::with('district')
+                ->where(
+                    'year',
+                    $request->year
+                )
+                ->orderByRaw("FIELD(period, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')")
+                ->get();
+
+            // Mengelompokkan data berdasarkan district
+            $groupedEmergencies = $statByYear->groupBy('district.name');
+
+            // Menyiapkan variabel data chart
+            $data_chart = [
+                'series' => collect([]),
+                'label' => collect([]),
+            ];
+
+            // Menghitung total untuk setiap district
+            foreach ($groupedEmergencies as $district => $records) {
+                $total = $records->reduce(function ($carry, $item) {
+                    return $carry + $item->kecelakaan
+                        + $item->kebakaran
+                        + $item->ambulan_gratis
+                        + $item->pln
+                        + $item->mobil_jenazah
+                        + $item->penanganan_hewan
+                        + $item->keamanan
+                        + $item->kriminal
+                        + $item->bencana_alam
+                        + $item->kdrt
+                        + $item->gawat_darurat_lain;
+                }, 0);
+
+                // Menambahkan hasil perhitungan ke variabel chart
+                $data_chart['series']->push($total);
+                $data_chart['label']->push($district);
+            }
+
+            $response = collect([
+                'by_month' => $total_by_month,
+                'by_year'  => $data_chart
+            ]);
+
+            return $this->success_json('Successfully get dashboard', $response);
+        } catch (\Throwable $th) {
+            return $this->error_json("Report not Found!", $th->getMessage(), 400);
+        }
+    }
 }

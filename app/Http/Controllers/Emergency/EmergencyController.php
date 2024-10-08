@@ -33,6 +33,7 @@ class EmergencyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'period'                => 'required',
+            'period_date'           => 'required',
             'year'                  => 'required|numeric',
         ]);
 
@@ -58,6 +59,7 @@ class EmergencyController extends Controller
 
             $collectionEmergencies->push([
                 'period' => $request->period,
+                'period_date' => $request->period_date,
                 'year' => $request->year,
                 'district_id' => $data['district_id'],
                 'kecelakaan' => $data['kecelakaan'],
