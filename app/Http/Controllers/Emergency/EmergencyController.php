@@ -182,4 +182,21 @@ class EmergencyController extends Controller
             return $this->error_json("Failed to delete emergency", $th->getMessage(), 500);
         }
     }
+
+    /**
+     * export the specified resource from storage.
+     */
+    public function export_data()
+    {
+        try {
+            $data = Emergency::with('district')
+                ->orderBy('year')
+                ->orderByRaw('FIELD(period, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")')
+                ->get();
+
+            return $this->success_json("Successfully export data", $data);
+        } catch (\Throwable $th) {
+            return $this->error_json("Failed to export data", $th->getMessage(), 500);
+        }
+    }
 }

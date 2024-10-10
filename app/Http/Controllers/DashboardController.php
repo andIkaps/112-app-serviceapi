@@ -36,12 +36,14 @@ class DashboardController extends Controller
                 ])
                 ->first();
 
-            foreach ($statByMonth->detail as $data) {
-                $totalByMonth['disconnect_call'] += $data->disconnect_call;
-                $totalByMonth['prank_call'] += $data->prank_call;
-                $totalByMonth['education_call'] += $data->education_call;
-                $totalByMonth['emergency_call'] += $data->emergency_call;
-                $totalByMonth['abandoned'] += $data->abandoned;
+            if ($statByMonth) {
+                foreach ($statByMonth->detail as $data) {
+                    $totalByMonth['disconnect_call'] += $data->disconnect_call;
+                    $totalByMonth['prank_call'] += $data->prank_call;
+                    $totalByMonth['education_call'] += $data->education_call;
+                    $totalByMonth['emergency_call'] += $data->emergency_call;
+                    $totalByMonth['abandoned'] += $data->abandoned;
+                }
             }
 
             $statByYear = Call::with('detail')
@@ -58,12 +60,14 @@ class DashboardController extends Controller
             ];
 
             foreach ($statByYear as $month) {
-                foreach ($month->detail as $detail) {
-                    $totalByYear['disconnect_call'] += $detail->disconnect_call;
-                    $totalByYear['prank_call'] += $detail->prank_call;
-                    $totalByYear['education_call'] += $detail->education_call;
-                    $totalByYear['emergency_call'] += $detail->emergency_call;
-                    $totalByYear['abandoned'] += $detail->abandoned;
+                if ($month->detail) {
+                    foreach ($month->detail as $detail) {
+                        $totalByYear['disconnect_call'] += $detail->disconnect_call;
+                        $totalByYear['prank_call'] += $detail->prank_call;
+                        $totalByYear['education_call'] += $detail->education_call;
+                        $totalByYear['emergency_call'] += $detail->emergency_call;
+                        $totalByYear['abandoned'] += $detail->abandoned;
+                    }
                 }
             }
 
@@ -72,14 +76,16 @@ class DashboardController extends Controller
             $grafik_year = collect([]);
             $bar_grafik_year = collect([]);
 
-            foreach ($statByMonth->detail as $detail) {
-                $date = sprintf('2024-%s-%s', '09', str_pad($detail->day, 2, '0', STR_PAD_LEFT));
-                $total = $detail->disconnect_call + $detail->prank_call + $detail->education_call + $detail->emergency_call + $detail->abandoned;
+            if ($statByMonth) {
+                foreach ($statByMonth->detail as $detail) {
+                    $date = sprintf('2024-%s-%s', '09', str_pad($detail->day, 2, '0', STR_PAD_LEFT));
+                    $total = $detail->disconnect_call + $detail->prank_call + $detail->education_call + $detail->emergency_call + $detail->abandoned;
 
-                $grafik_month->push([
-                    'x' => $date,
-                    'y' => $total
-                ]);
+                    $grafik_month->push([
+                        'x' => $date,
+                        'y' => $total
+                    ]);
+                }
             }
 
             foreach ($totalByMonth as $key => $value) {

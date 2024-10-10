@@ -13,7 +13,7 @@ class RoleMenuSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <= 16; $i++) {
+        for ($i = 1; $i <= 17; $i++) {
             DB::table('tr_role_menus')->insert([
                 'role_id'      => 1,
                 'menu_id'      => $i,

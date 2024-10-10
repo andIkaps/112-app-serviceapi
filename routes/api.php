@@ -13,6 +13,7 @@ use App\Http\Controllers\RBAC\MenuController;
 use App\Http\Controllers\RBAC\PermissionController;
 use App\Http\Controllers\RBAC\RoleController;
 use App\Http\Controllers\RBAC\UserController;
+use App\Http\Controllers\TestCallController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,9 +48,15 @@ Route::prefix('/v1')->group(function () {
         Route::apiResource('/permissions', PermissionController::class);
 
         // Call Reports
+        Route::get('/call-reports/export', [CallController::class, 'export_data']);
         Route::apiResource("/call-reports", CallController::class);
 
+        // Test Call Reports
+        Route::get('/test-calls/export', [TestCallController::class, 'export_data']);
+        Route::apiResource("/test-calls", TestCallController::class);
+
         // Emergency Reports
+        Route::get('/emergency-reports/export', [EmergencyController::class, 'export_data']);
         Route::apiResource("/emergency-reports", EmergencyController::class);
 
         // Dashboard

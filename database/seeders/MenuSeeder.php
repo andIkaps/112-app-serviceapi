@@ -33,10 +33,18 @@ class MenuSeeder extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
+                'name'  => 'Test Calls',
+                'icon'  => 'CallReceived',
+                'url'   => '/test-calls',
+                'ord'   => 3,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
                 'name'  => 'Emergency Reports',
                 'icon'  => 'Brodcast',
                 'url'   => '/emergency-reports',
-                'ord'   => 3,
+                'ord'   => 4,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -44,7 +52,7 @@ class MenuSeeder extends Seeder
                 'name'  => 'Master Data',
                 'icon'  => 'Layer',
                 'url'   => '#',
-                'ord'   => 4,
+                'ord'   => 5,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -52,7 +60,7 @@ class MenuSeeder extends Seeder
                 'name'  => 'Settings',
                 'icon'  => 'Setting2',
                 'url'   => '#',
-                'ord'   => 5,
+                'ord'   => 6,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -86,7 +94,7 @@ class MenuSeeder extends Seeder
                 'icon'  => 'UserOctagon',
                 'url'   => '/emergency-reports',
                 'ord'   => 1,
-                'parent_id' => 4,
+                'parent_id' => 5,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -95,7 +103,7 @@ class MenuSeeder extends Seeder
                 'icon'  => 'Arrow',
                 'url'   => '/master-data/religions',
                 'ord'   => 2,
-                'parent_id'   => 4,
+                'parent_id'   => 5,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -104,7 +112,7 @@ class MenuSeeder extends Seeder
                 'icon'  => 'Book1',
                 'url'   => '/master-data/status',
                 'ord'   => 3,
-                'parent_id'   => 4,
+                'parent_id'   => 5,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -113,7 +121,7 @@ class MenuSeeder extends Seeder
                 'icon'  => 'Buildings',
                 'url'   => '/master-data/districts',
                 'ord'   => 4,
-                'parent_id'   => 4,
+                'parent_id'   => 5,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -124,7 +132,7 @@ class MenuSeeder extends Seeder
                 'icon'  => 'Category2',
                 'url'   => '/settings/menus',
                 'ord'   => 1,
-                'parent_id'   => 5,
+                'parent_id'   => 6,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -133,7 +141,7 @@ class MenuSeeder extends Seeder
                 'icon'  => 'Lock1',
                 'url'   => '/settings/roles',
                 'ord'   => 2,
-                'parent_id'   => 5,
+                'parent_id'   => 6,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -142,7 +150,7 @@ class MenuSeeder extends Seeder
                 'icon'  => 'People',
                 'url'   => '/settings/users',
                 'ord'   => 3,
-                'parent_id'   => 5,
+                'parent_id'   => 6,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -155,7 +163,7 @@ class MenuSeeder extends Seeder
                 'icon'  => 'UserTag',
                 'url'   => '/master-data/employees',
                 'ord'   => 1,
-                'parent_id' => 8,
+                'parent_id' => 9,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -164,7 +172,7 @@ class MenuSeeder extends Seeder
                 'icon'  => 'Activity',
                 'url'   => '/master-data/employees/kpi',
                 'ord'   => 2,
-                'parent_id' => 8,
+                'parent_id' => 9,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],

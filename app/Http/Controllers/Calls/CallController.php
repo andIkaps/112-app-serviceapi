@@ -205,4 +205,21 @@ class CallController extends Controller
             return $this->error_json("Failed to delete call report", $th->getMessage(), 500);
         }
     }
+
+    /**
+     * export the specified resource from storage.
+     */
+    public function export_data()
+    {
+        try {
+            $data = Call::with('detail')
+                ->orderBy('year')
+                ->orderByRaw('FIELD(month_period, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")')
+                ->get();
+
+            return $this->success_json("Successfully export data", $data);
+        } catch (\Throwable $th) {
+            return $this->error_json("Failed to export data", $th->getMessage(), 500);
+        }
+    }
 }

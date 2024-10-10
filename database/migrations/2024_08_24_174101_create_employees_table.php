@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('marital_status_id')->constrained('ms_marital_status');
             $table->foreignId('religion_id')->constrained('ms_religions');
             $table->string('name');
+            $table->string('education');
             $table->string('jasnita_number');
             $table->string('gender', 10);
             $table->date('dob');
