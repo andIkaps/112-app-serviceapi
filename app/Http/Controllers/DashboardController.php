@@ -77,8 +77,24 @@ class DashboardController extends Controller
             $bar_grafik_year = collect([]);
 
             if ($statByMonth) {
+                $months = [
+                    "January" => "01",
+                    "February" => "02",
+                    "March" => "03",
+                    "April" => "04",
+                    "May" => "05",
+                    "June" => "06",
+                    "July" => "07",
+                    "August" => "08",
+                    "September" => "09",
+                    "October" => "10",
+                    "November" => "11",
+                    "December" => "12",
+                ];
+
+                $monthNumber = $months[$request->month_period];
                 foreach ($statByMonth->detail as $detail) {
-                    $date = sprintf('2024-%s-%s', '09', str_pad($detail->day, 2, '0', STR_PAD_LEFT));
+                    $date = sprintf('2024-%s-%s', $monthNumber, str_pad($detail->day, 2, '0', STR_PAD_LEFT));
                     $total = $detail->disconnect_call + $detail->prank_call + $detail->education_call + $detail->emergency_call + $detail->abandoned;
 
                     $grafik_month->push([
