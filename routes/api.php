@@ -57,6 +57,7 @@ Route::prefix('/v1')->group(function () {
 
         // Emergency Reports
         Route::get('/emergency-reports/export', [EmergencyController::class, 'export_data']);
+        Route::get('/emergency-reports/{month_period}/{year}', [EmergencyController::class, 'show_by_period']);
         Route::apiResource("/emergency-reports", EmergencyController::class);
 
         // Dashboard

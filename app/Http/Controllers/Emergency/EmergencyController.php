@@ -15,9 +15,22 @@ class EmergencyController extends Controller
     public function index()
     {
         try {
-            $data = Emergency::with('district')
-                ->orderBy('period', 'ASC')
-                ->orderBy('year', 'ASC')
+            $data = Emergency::groupBy('period', 'year')
+                ->selectRaw('
+                    period,
+                    year,
+                    SUM(kecelakaan) as kecelakaan,
+                    SUM(kebakaran) as kebakaran,
+                    SUM(ambulan_gratis) as ambulan_gratis,
+                    SUM(pln) as pln,
+                    SUM(mobil_jenazah) as mobil_jenazah,
+                    SUM(penanganan_hewan) as penanganan_hewan,
+                    SUM(keamanan) as keamanan,
+                    SUM(kriminal) as kriminal,
+                    SUM(bencana_alam) as bencana_alam,
+                    SUM(kdrt) as kdrt,
+                    SUM(gawat_darurat_lain) as gawat_darurat_lain
+                ')
                 ->get();
 
             return $this->success_json("Successfully get Emergency", $data);
@@ -96,6 +109,25 @@ class EmergencyController extends Controller
             $data = Emergency::with('district')
                 ->where('id', $id)
                 ->first();
+
+            return $this->success_json("Successfully get Emergency", $data);
+        } catch (\Throwable $th) {
+            return $this->error_json("Failed to get Emergency", $th->getMessage(), 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show_by_period($month_period, $year)
+    {
+        try {
+            $data = Emergency::with('district')
+                ->where([
+                    ['period', '=', $month_period],
+                    ['year', '=', $year],
+                ])
+                ->get();
 
             return $this->success_json("Successfully get Emergency", $data);
         } catch (\Throwable $th) {

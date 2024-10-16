@@ -162,8 +162,22 @@ class EmployeeKPIController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EmployeeKPI $employeeKPI)
+    public function destroy($id)
     {
-        //
+        $find = EmployeeKPI::where('id', $id)->first();
+
+        if (!$find) {
+            return $this->error_json("Employee KPI not found!", $find, 404);
+        }
+
+        try {
+            $delete = $find->delete();
+
+            if ($delete) {
+                return $this->success_json("Successfully delete employee kpi", $delete);
+            }
+        } catch (\Throwable $th) {
+            return $this->error_json("Failed to delete employee kpi", $th->getMessage(), 500);
+        }
     }
 }
