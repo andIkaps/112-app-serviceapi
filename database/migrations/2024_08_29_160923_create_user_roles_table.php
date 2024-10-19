@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tr_user_roles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('ms_users');
-            $table->foreignId('role_id')->nullable()->constrained('ms_roles');
+            $table->foreignId('user_id')->nullable()->constrained('ms_users')->cascadeOnDelete();
+            $table->foreignId('role_id')->nullable()->constrained('ms_roles')->cascadeOnDelete();
         });
     }
 
