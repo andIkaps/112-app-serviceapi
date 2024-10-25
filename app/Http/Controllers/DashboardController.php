@@ -218,7 +218,17 @@ class DashboardController extends Controller
                 'kriminal',
                 'bencana_alam',
                 'kdrt',
-                'gawat_darurat_lain'
+                'gelandangan_tanpa_identitas',
+                'pipa_pdam_bocor',
+                'odgj',
+                'percobaan_bunuh_diri',
+                'oli_tumpah',
+                'kabel_menjuntai',
+                'mobil_derek',
+                'tiang_rubuh',
+                'terkunci_dirumah',
+                'reklame_rubuh',
+                'orang_tenggelam',
             )
                 ->whereMonth('period_date', '>=', $request->from)
                 ->whereMonth('period_date', '<=', $request->to)
@@ -238,7 +248,17 @@ class DashboardController extends Controller
                 'kriminal' => 0,
                 'bencana_alam' => 0,
                 'kdrt' => 0,
-                'gawat_darurat_lain' => 0,
+                'gelandangan_tanpa_identitas' => 0,
+                'pipa_pdam_bocor' => 0,
+                'odgj' => 0,
+                'percobaan_bunuh_diri' => 0,
+                'oli_tumpah' => 0,
+                'kabel_menjuntai' => 0,
+                'mobil_derek' => 0,
+                'tiang_rubuh' => 0,
+                'terkunci_dirumah' => 0,
+                'reklame_rubuh' => 0,
+                'orang_tenggelam' => 0,
             ];
 
             foreach ($statByMonth as $item) {
@@ -277,7 +297,17 @@ class DashboardController extends Controller
                         + $item->kriminal
                         + $item->bencana_alam
                         + $item->kdrt
-                        + $item->gawat_darurat_lain;
+                        + $item->gelandangan_tanpa_identitas
+                        + $item->pipa_pdam_bocor
+                        + $item->odgj
+                        + $item->percobaan_bunuh_diri
+                        + $item->oli_tumpah
+                        + $item->kabel_menjuntai
+                        + $item->mobil_derek
+                        + $item->tiang_rubuh
+                        + $item->terkunci_dirumah
+                        + $item->reklame_rubuh
+                        + $item->orang_tenggelam;
                 }, 0);
 
                 // Menambahkan hasil perhitungan ke variabel chart

@@ -27,6 +27,8 @@ class TestCallController extends Controller
         $validator = Validator::make($request->all(), [
             'call_date' => 'required|date',
             'location' => 'required|string|max:255',
+            'latitude' => 'required|string|max:255',
+            'longitude' => 'required|string|max:255',
             'phone_number' => 'required|string|max:15',
             'duration' => 'required|integer|min:0',
             'status' => 'required|string|max:50',
@@ -69,6 +71,8 @@ class TestCallController extends Controller
         $validator = Validator::make($request->all(), [
             'call_date' => 'required|date',
             'location' => 'required|string|max:255',
+            'latitude' => 'required|max:255',
+            'longitude' => 'required|max:255',
             'phone_number' => 'required|string|max:15',
             'duration' => 'required|integer|min:0',
             'status' => 'required|string|max:50',

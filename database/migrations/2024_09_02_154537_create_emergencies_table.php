@@ -27,7 +27,19 @@ return new class extends Migration
             $table->integer('kriminal');
             $table->integer('bencana_alam');
             $table->integer('kdrt');
-            $table->integer('gawat_darurat_lain');
+            $table->integer('gelandangan_tanpa_identitas');
+            $table->integer('pipa_pdam_bocor');
+            $table->integer('odgj');
+            $table->integer('percobaan_bunuh_diri');
+            $table->integer('oli_tumpah');
+            $table->integer('kabel_menjuntai');
+            $table->integer('mobil_derek');
+            $table->integer('tiang_rubuh');
+            $table->integer('terkunci_dirumah');
+            $table->integer('reklame_rubuh');
+            $table->integer('orang_tenggelam');
+            $table->integer('created_by');
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }

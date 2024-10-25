@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->date('call_date');
             $table->string('location');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->string('phone_number');
             $table->integer('duration');
             $table->string('status');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Emergency;
 use App\Http\Controllers\Controller;
 use App\Models\Emergency;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class EmergencyController extends Controller
@@ -29,7 +30,17 @@ class EmergencyController extends Controller
                     SUM(kriminal) as kriminal,
                     SUM(bencana_alam) as bencana_alam,
                     SUM(kdrt) as kdrt,
-                    SUM(gawat_darurat_lain) as gawat_darurat_lain
+                    SUM(gelandangan_tanpa_identitas) as gelandangan_tanpa_identitas,
+                    SUM(pipa_pdam_bocor) as pipa_pdam_bocor,
+                    SUM(odgj) as odgj,
+                    SUM(percobaan_bunuh_diri) as percobaan_bunuh_diri,
+                    SUM(oli_tumpah) as oli_tumpah,
+                    SUM(kabel_menjuntai) as kabel_menjuntai,
+                    SUM(mobil_derek) as mobil_derek,
+                    SUM(tiang_rubuh) as tiang_rubuh,
+                    SUM(terkunci_dirumah) as terkunci_dirumah,
+                    SUM(reklame_rubuh) as reklame_rubuh,
+                    SUM(orang_tenggelam) as orang_tenggelam
                 ')
                 ->get();
 
@@ -85,7 +96,18 @@ class EmergencyController extends Controller
                 'kriminal' => $data['kriminal'],
                 'bencana_alam' => $data['bencana_alam'],
                 'kdrt' => $data['kdrt'],
-                'gawat_darurat_lain' => $data['gawat_darurat_lain'],
+                'gelandangan_tanpa_identitas' => $data['gelandangan_tanpa_identitas'],
+                'pipa_pdam_bocor' => $data['pipa_pdam_bocor'],
+                'odgj' => $data['odgj'],
+                'percobaan_bunuh_diri' => $data['percobaan_bunuh_diri'],
+                'oli_tumpah' => $data['oli_tumpah'],
+                'kabel_menjuntai' => $data['kabel_menjuntai'],
+                'mobil_derek' => $data['mobil_derek'],
+                'tiang_rubuh' => $data['tiang_rubuh'],
+                'terkunci_dirumah' => $data['terkunci_dirumah'],
+                'reklame_rubuh' => $data['reklame_rubuh'],
+                'orang_tenggelam' => $data['orang_tenggelam'],
+                'created_by' => Auth::user()->id
             ]);
         }
 
@@ -160,7 +182,17 @@ class EmergencyController extends Controller
             'kriminal'              => 'required|numeric',
             'bencana_alam'          => 'required|numeric',
             'kdrt'                  => 'required|numeric',
-            'gawat_darurat_lain'    => 'required|numeric',
+            'gelandangan_tanpa_identitas' => 'required|numeric',
+            'pipa_pdam_bocor' => 'required|numeric',
+            'odgj' => 'required|numeric',
+            'percobaan_bunuh_diri' => 'required|numeric',
+            'oli_tumpah' => 'required|numeric',
+            'kabel_menjuntai' => 'required|numeric',
+            'mobil_derek' => 'required|numeric',
+            'tiang_rubuh' => 'required|numeric',
+            'terkunci_dirumah' => 'required|numeric',
+            'reklame_rubuh' => 'required|numeric',
+            'orang_tenggelam' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -169,20 +201,31 @@ class EmergencyController extends Controller
 
         try {
             $update = $find->update([
-                'period'                => $request->period,
-                'year'                  => $request->year,
-                'district_id'           => $request->district_id,
-                'kecelakaan'            => $request->kecelakaan,
-                'kebakaran'             => $request->kebakaran,
-                'ambulan_gratis'        => $request->ambulan_gratis,
-                'pln'                   => $request->pln,
-                'mobil_jenazah'         => $request->mobil_jenazah,
-                'penanganan_hewan'      => $request->penanganan_hewan,
-                'keamanan'              => $request->keamanan,
-                'kriminal'              => $request->kriminal,
-                'bencana_alam'          => $request->bencana_alam,
-                'kdrt'                  => $request->kdrt,
-                'gawat_darurat_lain'    => $request->gawat_darurat_lain,
+                'period'                      => $request->period,
+                'year'                        => $request->year,
+                'district_id'                 => $request->district_id,
+                'kecelakaan'                  => $request->kecelakaan,
+                'kebakaran'                   => $request->kebakaran,
+                'ambulan_gratis'              => $request->ambulan_gratis,
+                'pln'                         => $request->pln,
+                'mobil_jenazah'               => $request->mobil_jenazah,
+                'penanganan_hewan'            => $request->penanganan_hewan,
+                'keamanan'                    => $request->keamanan,
+                'kriminal'                    => $request->kriminal,
+                'bencana_alam'                => $request->bencana_alam,
+                'kdrt'                        => $request->kdrt,
+                'gelandangan_tanpa_identitas' => $request->gelandangan_tanpa_identitas,
+                'pipa_pdam_bocor'             => $request->pipa_pdam_bocor,
+                'odgj'                        => $request->odgj,
+                'percobaan_bunuh_diri'        => $request->percobaan_bunuh_diri,
+                'oli_tumpah'                  => $request->oli_tumpah,
+                'kabel_menjuntai'             => $request->kabel_menjuntai,
+                'mobil_derek'                 => $request->mobil_derek,
+                'tiang_rubuh'                 => $request->tiang_rubuh,
+                'terkunci_dirumah'            => $request->terkunci_dirumah,
+                'reklame_rubuh'               => $request->reklame_rubuh,
+                'orang_tenggelam'             => $request->orang_tenggelam,
+                'updated_by' => Auth::user()->id
             ]);
 
             if ($update) {
