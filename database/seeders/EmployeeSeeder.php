@@ -20,6 +20,7 @@ class EmployeeSeeder extends Seeder
             'name'              => 'Tika Soliha',
             'education'         => 'Strata 1',
             'jasnita_number'    => 789111,
+            'employment_status'    => 'Tenaga Ahli',
             'gender'            => 'Female',
             'dob'               => '2001-04-27',
             'address'           => 'Tangerang',

@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('education');
             $table->string('jasnita_number');
+            $table->string('employment_status');
             $table->string('gender', 10);
             $table->date('dob');
             $table->string('address');
-            $table->string('avatar')->default('default.png');
+            $table->string('avatar')->default('default.png')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('ms_users');
             $table->foreignId('updated_by')->nullable()->constrained('ms_users');
             $table->timestamps();

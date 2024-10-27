@@ -36,10 +36,10 @@ class EmployeeController extends Controller
             'name'              => 'required|min:3',
             'education'         => 'required|min:3',
             'jasnita_number'    => 'required',
+            'employment_status'    => 'required',
             'gender'            => 'required',
             'dob'               => 'required|date',
             'address'           => 'required',
-            'avatar'            => 'required|image'
         ]);
 
         if ($validator->fails()) {
@@ -53,7 +53,7 @@ class EmployeeController extends Controller
 
             $avatarPath = $avatarPath;
         } else {
-            $avatarPath = null;
+            $avatarPath = 'default.png';
         }
 
         try {
@@ -63,6 +63,7 @@ class EmployeeController extends Controller
                 'name'              => $request->name,
                 'education'         => $request->education,
                 'jasnita_number'    => $request->jasnita_number,
+                'employment_status'    => $request->employment_status,
                 'gender'            => $request->gender,
                 'dob'               => $request->dob,
                 'address'           => $request->address,
@@ -109,6 +110,7 @@ class EmployeeController extends Controller
                 'marital_status_id' => 'required|numeric',
                 'name'              => 'required|min:3',
                 'jasnita_number'    => 'required',
+                'employment_status'    => 'required',
                 'gender'            => 'required',
                 'dob'               => 'required|date',
                 'address'           => 'required',
@@ -145,6 +147,7 @@ class EmployeeController extends Controller
                         'religion_id'       => (int)$request->religion_id,
                         'name'              => $request->name,
                         'jasnita_number'    => $request->jasnita_number,
+                        'employment_status'    => $request->employment_status,
                         'gender'            => $request->gender,
                         'dob'               => $request->dob,
                         'address'           => $request->address,
@@ -156,6 +159,7 @@ class EmployeeController extends Controller
                         'religion_id'       => (int)$request->religion_id,
                         'name'              => $request->name,
                         'jasnita_number'    => $request->jasnita_number,
+                        'employment_status'    => $request->employment_status,
                         'gender'            => $request->gender,
                         'dob'               => $request->dob,
                         'address'           => $request->address,
