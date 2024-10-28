@@ -9,10 +9,21 @@ use Illuminate\Support\Facades\Validator;
 class TestCallController extends Controller
 {
     // GET: /api/test-calls - Retrieve all test calls
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $testCalls = TestCall::all();
+            $query = TestCall::query();
+
+            // Check for query parameters and apply conditions accordingly
+            $query->when($request->has('from'), function ($q) use ($request) {
+                return $q->where('call_date', '>=', $request->query('from'));
+            });
+
+            $query->when($request->has('to'), function ($q) use ($request) {
+                return $q->where('call_date', '<=', $request->query('to'));
+            });
+
+            $testCalls = $query->get();
 
             return $this->success_json("Successfully get test call", $testCalls);
         } catch (\Exception $e) {
