@@ -114,7 +114,7 @@ class DashboardController extends Controller
                     ]);
                 } else {
                     $bar_grafik_month->push([
-                        'x' => strtoupper($name[0]),
+                        'x' => ucfirst($name[0]),
                         'y' => $value
                     ]);
                 }
@@ -143,7 +143,7 @@ class DashboardController extends Controller
                     ]);
                 } else {
                     $bar_grafik_year->push([
-                        'x' => strtoupper($name[0]),
+                        'x' => ucfirst($name[0]),
                         'y' => $value
                     ]);
                 }
