@@ -23,7 +23,7 @@ class TestCallController extends Controller
                 return $q->where('call_date', '<=', $request->query('to'));
             });
 
-            $testCalls = $query->get();
+            $testCalls = $query->orderBy('call_date', 'ASC')->get();
 
             return $this->success_json("Successfully get test call", $testCalls);
         } catch (\Exception $e) {
